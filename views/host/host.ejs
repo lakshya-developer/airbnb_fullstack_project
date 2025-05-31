@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airbnb Host</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 h-screen flex flex-col">
+    <%- include('../partials/header') %>
+
+    <main class="container mx-auto py-12 flex-grow flex justify-center items-center">
+        <div class="text-center">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Manage Your Listings</h2>
+            <a href="/host/add-home" class="inline-block px-6 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors duration-200 font-semibold">
+                Add New Home
+            </a>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-4 text-center">
+        <p>&copy; 2024 Airbnb. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

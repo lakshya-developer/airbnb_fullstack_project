@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Your Home to Airbnb</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class="bg-gray-100 h-screen flex flex-col">
+    <%- include('../partials/header') %>
+    <h1 class="text-2xl font-bold text-gray-400">List Your Home on Airbnb</h1>
+    <main class="container mx-auto flex flex-grow justify-center items-center">
+      <div class="bg-white rounded-lg shadow-xl p-8 w-96">
+        <form action="/host/home-added" method="POST" class="space-y-6">
+          <div>
+            <label
+              for="houseName"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Home Name</label
+            >
+            <input
+              type="text"
+              id="houseName"
+              name="houseName"
+              placeholder="Enter the name of your house"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              required
+            />
+          </div>
+
+          <div>
+            <label
+              for="description"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Description</label
+            >
+            <textarea
+              id="description"
+              name="description"
+              placeholder="Describe your property"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              rows="4"
+            ></textarea>
+          </div>
+
+          <div>
+            <label
+              for="pricePerNight"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Price per Night</label
+            >
+            <input
+              type="number"
+              id="pricePerNight"
+              name="pricePerNight"
+              placeholder="Enter price per night (e.g., 150)"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              min="0"
+              required
+            />
+          </div>
+
+          <div>
+            <label
+              for="location"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Location</label
+            >
+            <input
+              type="text"
+              id="location"
+              name="location"
+              placeholder="Enter the location (e.g., New York, NY)"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              required
+            />
+          </div>
+
+          <div class="flex flex-col space-y-1">
+            <label for="rating" class="text-sm font-medium text-gray-700"
+              >Rating (1-5)</label
+            >
+            <input
+              type="number"
+              id="rating"
+              name="rating"
+              min="1"
+              max="5"
+              class="w-24 px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400"
+              placeholder="Enter rating"
+            />
+          </div>
+
+          <div>
+            <label
+              for="photo"
+              class="block text-gray-700 text-sm font-bold mb-2"
+              >Photo URL</label
+            >
+            <input
+              type="text"
+              id="photo"
+              name="photo"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            <!-- <input
+              type="file"
+              id="photo"
+              name="photo"
+              accept="image/*"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            /> -->
+          </div>
+
+          <div class="flex items-center justify-between">
+            <button
+              type="submit"
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+            >
+              List Home
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+    <footer class="bg-gray-800 text-white py-4 text-center">
+      <p>&copy; 2024 Airbnb. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
