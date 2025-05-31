@@ -1,9 +1,8 @@
 const {Home} = require('../models/home');
 
-exports.getHome =  (req, res , next) => {
-  Home.fetchFile(registerdHomes => {
-    res.render('store/home-list', {registerdHomes: registerdHomes})
-  });
+exports.getHome = async (req, res , next) => {
+    const registeredHomes = await Home.fetchFile();
+    res.render('store/home-list.ejs', {registeredHomes: registeredHomes });   
 }
 
 exports.getHostHome =  (req, res , next) => {

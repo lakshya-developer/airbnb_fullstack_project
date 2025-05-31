@@ -48,21 +48,21 @@
       <ul
         class="flex flex-col justify-center items-center w-full h-full p-20 md:flex-wrap lg:flex-row gap-6"
       >
-        <% if (registerdHomes && registerdHomes.length > 0) { %> <%
-        registerdHomes.forEach( home => { %>
+        <% if (registeredHomes && registeredHomes.length > 0) { %> <%
+        registeredHomes.forEach( home => { %>
         <li
           class="card bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:scale-105"
         >
           <div class="p-6 relative">
             <img class="h-40 w-full" src="<%= home.photo %>" alt="" />
             <h3 class="text-xl font-semibold text-gray-800 mb-2">
-              <%= home.HouseName %>
+              <%= home.houseName %>
             </h3>
             <p class="description hidden text-gray-600 text-sm leading-relaxed">
               Description: <%= home.description %>
             </p>
             <p class="hidden price text-gray-600 text-sm leading-relaxed">
-              Price: <%= home.pricePerNight %>
+              Price: <%= home.price %>
             </p>
             <p class="hidden location text-gray-600 text-sm leading-relaxed">
               Location: <%= home.location %>
