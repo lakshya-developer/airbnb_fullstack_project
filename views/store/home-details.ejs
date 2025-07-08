@@ -21,83 +21,211 @@
     </style>
   </head>
   <body class="bg-gray-100 h-screen flex flex-col">
-    <header class="flex flex-row bg-black py-4 shadow-md">
-      <div class="container mx-auto px-4">
-        <h1 class="cursor-pointer text-white text-3xl font-semibold">
-          Welcome to Airbnb
-        </h1>
-      </div>
-      <div class="flex justify-center space-x-8 px-10">
-        <a
-          href="/host"
-          class="px-6 py-1 hover:bg-gray-800 text-white transition-colors duration-200"
-          >Host</a
-        >
-        <a
-          href="/user"
-          class="px-6 py-1 hover:bg-gray-800 text-white transition-colors duration-200"
-          >User</a
-        >
+    <header
+      class="flex flex-row bg-black py-6 shadow-lg border-b border-gray-800"
+    >
+      <div
+        class="flex flex-col justify-between items-center md:flex-row container mx-auto px-6 max-w-7xl"
+      >
+        <div class="mb-4 md:mb-0">
+          <h1
+            class="text-white text-4xl font-bold tracking-wide hover:text-gray-300 transition-colors duration-300 cursor-pointer md:mr-10"
+          >
+            <a href="/" class="flex items-center">
+              <span
+                class="bg-gradient-to-r from-pink-500 to-red-500 bg-clip-text text-transparent"
+                >Welcome to Airbnb</span
+              >
+            </a>
+          </h1>
+        </div>
+        <% if (isLoggedIn) { %>
+        <div class="flex justify-end items-center gap-2">
+          <% if (userType === "guest") { %>
+          <a
+            href="/home-list"
+            class="px-8 py-3 rounded-full hover:bg-gray-800 text-white font-medium transition-all duration-300 hover:scale-105 <%= currentPath === '/favourite' ? 'bg-gray-800 ring-2 ring-gray-600' : '' %>"
+          >
+            Home List
+          </a>
+          <a
+            href="/favourite"
+            class="px-8 py-3 rounded-full transition-all duration-300 text-white font-medium hover:bg-gray-800 hover:scale-105 <%= currentPath === '/favourite' ? 'bg-gray-800 ring-2 ring-gray-600' : '' %>"
+          >
+            Favourite
+          </a>
+          <a
+            href="/bookings"
+            class="px-8 py-3 rounded-full transition-all duration-300 text-white font-medium hover:bg-gray-800 hover:scale-105 <%= currentPath === '/bookings' ? 'bg-gray-800 ring-2 ring-gray-600' : '' %>"
+          >
+            Bookings
+          </a>
+          <%} else { %>
+          <a
+            href="/host"
+            class="px-8 py-3 rounded-full transition-all duration-300 text-white font-medium hover:bg-gray-800 hover:scale-105 <%= currentPath === '/host' ? 'bg-gray-800 ring-2 ring-gray-600' : '' %>"
+          >
+            Host
+          </a>
+          <a
+            href="/host/add-home"
+            class="px-8 py-3 rounded-full transition-all duration-300 text-white font-medium hover:bg-gray-800 hover:scale-105 <%= currentPath === '/host' ? 'bg-gray-800 ring-2 ring-gray-600' : '' %>"
+          >
+            + Add Home
+          </a>
+          <% } %>
+          <a
+            href="/user"
+            class="px-8 py-3 rounded-full transition-all duration-300 text-white font-medium hover:bg-gray-800 hover:scale-105 <%= currentPath === '/user' ? 'bg-gray-800 ring-2 ring-gray-600' : '' %>"
+          >
+            Profile
+          </a>
+          <form action="/logout" method="POST" class="inline-block">
+            <button
+              class="px-8 py-3 rounded-full transition-all duration-300 text-white font-medium hover:bg-red-600 hover:scale-105 bg-red-500"
+            >
+              Logout
+            </button>
+          </form>
+        </div>
+        <%} else { %>
+        <div class="flex justify-end items-center gap-2">
+          <a
+            href="/login"
+            class="px-8 py-3 rounded-full transition-all duration-300 text-white font-medium hover:bg-gray-800 hover:scale-105 <%= currentPath === '/login' ? 'bg-gray-800 ring-2 ring-gray-600' : '' %>"
+          >
+            Login
+          </a>
+          <a
+            href="/sign-up"
+            class="px-8 py-3 rounded-full transition-all duration-300 text-white font-medium hover:bg-blue-600 hover:scale-105 bg-blue-500 <%= currentPath === '/sign-up' ? 'ring-2 ring-blue-400' : '' %>"
+          >
+            Sign Up
+          </a>
+        </div>
+        <% } %>
       </div>
     </header>
     <main class="container flex-grow flex justify-center items-center">
       <ul
         class="flex flex-col justify-center items-center w-full h-full p-20 md:flex-wrap lg:flex-row gap-6"
       >
-        <% if (registerdHomes && registerdHomes.length > 0) { %> <%
-        registerdHomes.forEach( home => { %>
+        <% if (registeredHomes && registeredHomes.length > 0) { %> <%
+        registeredHomes.forEach( home => { %>
         <li
-          class="card bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:scale-105"
+          class="card bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl border border-gray-100"
         >
-          <div class="p-6 relative">
-            <img class="h-40 w-full" src="<%= home.photo %>" alt="">
-            <h3 class="text-xl font-semibold text-gray-800 mb-2">
-              <%= home.HouseName %>
-            </h3>
-            <p class="description hidden text-gray-600 text-sm leading-relaxed">
-              Description: <%= home.description %>
-            </p>
-            <p class="hidden price text-gray-600 text-sm leading-relaxed">
-              Price: <%= home.pricePerNight %>
-            </p>
-            <p class="hidden location text-gray-600 text-sm leading-relaxed">
-              Location: <%= home.location %>
-            </p>
-            <span
-              class="flex flex-row justify-center items-center absolute right-1 bottom-1 text-gray-600"
+          <div class="relative">
+            <img
+              class="h-48 w-full object-cover"
+              src="<%= home.photo %>"
+              alt="<%= home.houseName %>"
+            />
+            <div
+              class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1 shadow-md"
             >
               <svg
-                class="h-4 w-4 text-yellow-400 fill-current stroke-current"
+                class="h-4 w-4 text-yellow-500 fill-current"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 200 200"
               >
                 <polygon
                   points="100,10 40,198 190,78 10,78 160,198"
-                  class="stroke-yellow-400"
+                  class="stroke-yellow-500"
                   style="stroke-width: 5"
                 />
               </svg>
+              <span class="text-sm font-semibold text-gray-800"
+                ><%= home.rating %></span
+              >
+            </div>
+          </div>
 
-              <%= home.rating %>
-            </span>
+          <div class="p-6">
+            <div class="mb-4">
+              <h3 class="text-xl font-bold text-gray-900 mb-2 line-clamp-2">
+                <%= home.houseName %>
+              </h3>
+              <p class="text-gray-600 text-sm flex items-center gap-1">
+                <svg
+                  class="h-4 w-4 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                <%= home.location %>
+              </p>
+            </div>
+
+            <% if (isLoggedIn && userType === "guest") { %>
+            <div class="flex gap-3 mb-4">
+              <form class="flex-1" action="/bookings" method="post">
+                <input type="hidden" name="id" value="<%= home._id %>" />
+                <button
+                  class="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-sm hover:shadow-md"
+                  type="submit"
+                >
+                  Book Now
+                </button>
+              </form>
+
+              <form action="/favourite" method="post">
+                <input type="hidden" name="id" value="<%= home._id %>" />
+                <button
+                  class="bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white font-semibold py-2.5 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 shadow-sm hover:shadow-md"
+                  type="submit"
+                >
+                  <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fill-rule="evenodd"
+                      d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </form>
+            </div>
+            <% } %>
           </div>
+
           <div
-            class="view-details px-6 py-4 bg-gray-50 border-t border-gray-200"
+            class="px-6 py-4 bg-gradient-to-r from-gray-50 to-gray-100 border-t border-gray-200"
           >
-            <a
-              href="#"
-              class="text-blue-600 hover:text-blue-800 text-sm font-medium"
-              >View Details &rarr;</a
-            >
-          </div>
-          <div
-            class="hide-details hidden px-6 py-4 bg-gray-50 border-t border-gray-200"
-          >
-            <a
-              href="#"
-              class="text-blue-600 hover:text-blue-800 text-sm font-medium"
-              >Hide Details &rarr;</a
-            >
+            <form action="/details" method="post">
+              <input type="hidden" name="homeId" value="<%= home._id %>" />
+              <input type="hidden" name="from" value="/" />
+              <button
+                class="w-full text-blue-600 hover:text-blue-800 text-sm font-semibold py-2 px-4 rounded-lg hover:bg-blue-50 transition-all duration-200 flex items-center justify-center gap-2"
+              >
+                View Details
+                <svg
+                  class="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+            </form>
           </div>
         </li>
         <% }); %> <% } else { %>

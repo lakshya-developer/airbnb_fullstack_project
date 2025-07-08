@@ -9,6 +9,6 @@ const userRouter = express.Router();
 const rootDir = require('../utils/pathUtil');
 const HomesController = require('../controller/homes');
 
-userRouter.get("/", HomesController.getUserHome);
+userRouter.get("/", HomesController.getUserProfile);
 
 module.exports = userRouter;

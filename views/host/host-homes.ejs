@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Hosted Homes</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-100 min-h-screen">
+    <%- include('../partials/header') %>
+
+    <main
+      class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+    >
+      <% if (hostedHomes && hostedHomes.length > 0) { %> <%
+      hostedHomes.forEach(home => { %>
+      <div class="bg-white rounded shadow p-4">
+        <img
+          class="w-full max-w-sm h-64 object-cover rounded-lg shadow-md mb-4"
+          src="<%= home.photo %>"
+          alt="Home Image"
+        />
+        <h2 class="text-xl font-bold mb-1"><%= home.houseName %></h2>
+        <p class="text-gray-600 mb-1">Price: ₹<%= home.price %></p>
+        <p class="text-gray-600 mb-1">Location: <%= home.location %></p>
+        <p class="text-gray-600 mb-3">Rating: <%= home.rating %></p>
+
+        <!-- Edit/Delete Buttons -->
+        <div class="flex justify-between">
+          <form action="/host/edit-home" method="post">
+            <input type="hidden" name="homeId" value="<%= home._id %>" />
+            <button
+              class="bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-3 rounded"
+            >
+              Edit
+            </button>
+          </form>
+          <form action="/host/delete/<%= home._id %>" method="post">
+            <input type="hidden" name="id" value="<%= home._id %>" />
+            <button
+              class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
+            >
+              Delete
+            </button>
+          </form>
+        </div>
+
+        
+      </div>
+
+      <% }); %> <% } else { %>
+      <p class="text-center col-span-full text-gray-600">
+        You haven't hosted any homes yet.
+      </p>
+      <% } %>
+    </main>
+  </body>
+</html>
+
